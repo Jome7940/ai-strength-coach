@@ -6,22 +6,12 @@ import { colors, spacing, typography } from '@/constants/design';
 import { blink } from '@/lib/blink';
 import { useAuth } from '@/hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
+import { EXERCISE_TEMPLATES } from '@/constants/exercises';
 
 interface ExerciseTemplate {
   name: string;
   muscleGroups: string[];
 }
-
-const EXERCISE_LIBRARY: ExerciseTemplate[] = [
-  { name: 'Bench Press', muscleGroups: ['chest', 'shoulders', 'triceps'] },
-  { name: 'Squats', muscleGroups: ['quads', 'glutes', 'hamstrings'] },
-  { name: 'Deadlift', muscleGroups: ['back', 'glutes', 'hamstrings'] },
-  { name: 'Overhead Press', muscleGroups: ['shoulders', 'triceps'] },
-  { name: 'Pull Ups', muscleGroups: ['back', 'biceps'] },
-  { name: 'Bicep Curls', muscleGroups: ['biceps'] },
-  { name: 'Tricep Extensions', muscleGroups: ['triceps'] },
-  { name: 'Leg Press', muscleGroups: ['quads', 'glutes'] },
-];
 
 export default function CreatePlanScreen() {
   const router = useRouter();
@@ -86,7 +76,7 @@ export default function CreatePlanScreen() {
         <View style={styles.section}>
           <Text style={styles.label}>Select Exercises</Text>
           <View style={styles.exerciseGrid}>
-            {EXERCISE_LIBRARY.map((ex) => {
+            {EXERCISE_TEMPLATES.map((ex) => {
               const isSelected = !!selectedExercises.find(e => e.name === ex.name);
               return (
                 <TouchableOpacity 

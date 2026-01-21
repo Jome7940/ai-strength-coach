@@ -7,6 +7,7 @@ import { blink } from '@/lib/blink';
 import { useAuth } from '@/hooks/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
+import { EXERCISE_DATABASE } from '@/constants/exercises';
 
 interface Set {
   weight: string;
@@ -117,19 +118,62 @@ export default function WorkoutSessionScreen() {
         exercises: exercises.map(ex => ({
           name: ex.name,
           sets: ex.sets.filter(s => s.completed).map(s => ({
-            weight: parseFloat(s.weight),
-            reps: parseInt(s.reps)
+            weight: parseFloat(s.weight) || 0,
+            reps: parseInt(s.reps, 10) || 0
           }))
         }))
       });
       
-      // Update muscle mapping scores (simplified logic)
-      // In a real app, this would calculate volume per muscle group
+      // Calculate Muscle Volume with 1.0/0.5 multiplier
+      const volumeUpdates: Record<string, number> = {};
       
-      Alert.alert('Success', 'Workout logged successfully!', [
+      exercises.forEach(ex => {
+        const completedSets = ex.sets.filter(s => s.completed).length;
+        if (completedSets === 0) return;
+
+        const info = EXERCISE_DATABASE[ex.name];
+        if (info) {
+          // Primary muscles get 1.0 multiplier
+          info.primaryMuscles.forEach(muscle => {
+            volumeUpdates[muscle] = (volumeUpdates[muscle] || 0) + completedSets;
+          });
+          // Secondary muscles get 0.5 multiplier
+          info.secondaryMuscles.forEach(muscle => {
+            volumeUpdates[muscle] = (volumeUpdates[muscle] || 0) + (completedSets * 0.5);
+          });
+        }
+      });
+
+      // Fetch existing volume to update
+      const existingVolume = await blink.db.muscleVolume.list({
+        where: { userId: user?.id }
+      });
+
+      // Update or create muscle volume records
+      const promises = Object.entries(volumeUpdates).map(async ([muscle, additionalSets]) => {
+        const existing = (existingVolume || []).find(v => v.muscleGroup === muscle);
+        if (existing) {
+          await blink.db.muscleVolume.update(existing.id, {
+            score: (Number(existing.score) || 0) + additionalSets,
+            lastTrained: new Date().toISOString()
+          });
+        } else {
+          await blink.db.muscleVolume.create({
+            userId: user?.id,
+            muscleGroup: muscle,
+            score: additionalSets,
+            lastTrained: new Date().toISOString()
+          });
+        }
+      });
+
+      await Promise.all(promises);
+      
+      Alert.alert('Success', 'Workout logged and muscle volume updated!', [
         { text: 'OK', onPress: () => router.replace('/(tabs)') }
       ]);
     } catch (error) {
+      console.error('Error saving workout:', error);
       Alert.alert('Error', 'Failed to save workout.');
     }
   };

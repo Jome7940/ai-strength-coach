@@ -68,6 +68,11 @@ export const EXERCISE_DATABASE: Record<string, ExerciseInfo> = {
   'Plank': {
     name: 'Plank',
     primaryMuscles: ['abs'],
-    secondaryMuscles: ['obliques', 'shoulders'],
+    secondaryMuscles: ['obliques'],
   },
 };
+
+export const EXERCISE_TEMPLATES = Object.values(EXERCISE_DATABASE).map(ex => ({
+  name: ex.name,
+  muscleGroups: [...ex.primaryMuscles, ...ex.secondaryMuscles],
+}));

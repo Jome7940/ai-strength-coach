@@ -6,7 +6,7 @@ import * as WebBrowser from 'expo-web-browser';
 export const blink = createClient({
   projectId: 'ai-strength-coach-puuldf2v',
   auth: {
-    mode: 'headless',
+    mode: 'managed',
     webBrowser: WebBrowser,
   },
   storage: new AsyncStorageAdapter(AsyncStorage),

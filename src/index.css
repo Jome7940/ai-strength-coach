@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* AI Strength Coach - Premium Mono Design System */
+    /* Dark by default for fitness apps - high contrast, minimal eye strain */
+    
+    /* Core Colors - Mono with strategic accent */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    
+    /* Primary - Deep charcoal/black for authority */
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    
+    /* Secondary - Subtle gray for depth */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+    
+    /* Muted - For disabled/subtle states */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    /* Accent - Fitness green for progress/success */
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Destructive for errors/warnings */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Borders and inputs */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 9%;
+
+    /* Chart colors for muscle maps and progress */
+    --chart-1: 142 76% 36%;  /* Primary green - trained muscles */
+    --chart-2: 142 60% 50%;  /* Lighter green */
+    --chart-3: 45 93% 47%;   /* Amber - caution */
+    --chart-4: 0 84% 60%;    /* Red - overtrained */
+    --chart-5: 220 14% 70%;  /* Gray - untrained */
+
+    /* Muscle map specific colors */
+    --muscle-high: 142 76% 36%;     /* Well trained */
+    --muscle-medium: 142 50% 55%;   /* Moderately trained */
+    --muscle-low: 45 90% 50%;       /* Undertrained */
+    --muscle-none: 0 0% 85%;        /* Not trained */
+    --muscle-over: 0 84% 60%;       /* Overtrained */
+
+    /* Sidebar */
+    --sidebar: 0 0% 98%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 0 0% 9%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 0% 9%;
+
+    /* Fonts */
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Geist Mono', 'SF Mono', Consolas, monospace;
+
+    /* Shadows - subtle for clean look */
+    --shadow-2xs: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+    /* Radius */
+    --radius: 0.5rem;
+    --spacing: 0.25rem;
+    --tracking-normal: -0.01em;
+  }
+
+  .dark {
+    /* Dark mode - primary experience for gym use */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 142 76% 42%;
+    --accent-foreground: 0 0% 4%;
+    
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 98%;
+
+    --chart-1: 142 76% 42%;
+    --chart-2: 142 60% 55%;
+    --chart-3: 45 93% 55%;
+    --chart-4: 0 70% 55%;
+    --chart-5: 0 0% 40%;
+
+    --muscle-high: 142 76% 42%;
+    --muscle-medium: 142 50% 60%;
+    --muscle-low: 45 90% 55%;
+    --muscle-none: 0 0% 25%;
+    --muscle-over: 0 70% 55%;
+
+    --sidebar: 0 0% 7%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 9%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 0% 98%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  /* Selection highlight */
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+}
+
+@layer components {
+  /* Custom utility for muscle intensity gradients */
+  .muscle-intensity-0 { background-color: hsl(var(--muscle-none)); }
+  .muscle-intensity-1 { background-color: hsl(var(--muscle-low)); }
+  .muscle-intensity-2 { background-color: hsl(var(--muscle-medium)); }
+  .muscle-intensity-3 { background-color: hsl(var(--muscle-high)); }
+  .muscle-intensity-over { background-color: hsl(var(--muscle-over)); }
+
+  /* Workout session card styles */
+  .workout-card {
+    @apply bg-card rounded-lg border border-border p-4 transition-all duration-200;
+  }
+  
+  .workout-card:hover {
+    @apply shadow-md border-primary/20;
+  }
+
+  /* Exercise row in active workout */
+  .exercise-row {
+    @apply flex items-center gap-4 p-4 bg-secondary/50 rounded-lg;
+  }
+
+  /* Timer display */
+  .timer-display {
+    @apply font-mono text-4xl tabular-nums tracking-tight;
+  }
+
+  /* Stat card for insights */
+  .stat-card {
+    @apply bg-card rounded-lg border border-border p-4 flex flex-col gap-1;
+  }
+
+  .stat-value {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  .stat-label {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply h-2 bg-secondary rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-accent transition-all duration-300 ease-out;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth scrolling container */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  /* Touch-friendly tap targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Animation utilities */
+  .animate-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseSoft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+}

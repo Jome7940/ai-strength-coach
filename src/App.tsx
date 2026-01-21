@@ -23,7 +23,7 @@ type AppView =
   | 'calendar-planning';
 
 function App() {
-  const { user, isLoading, isAuthenticated, login, logout } = useAuth();
+  const { user, isLoading, isAuthenticated, login, logout } = useAuth() as any;
   const [view, setView] = useState<AppView>('landing');
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(false);
@@ -43,7 +43,7 @@ function App() {
       setProfileLoading(true);
       try {
         // Try to fetch existing profile
-        const profiles = await blink.db.userProfiles.list({
+        const profiles = await (blink.db as any).userProfiles.list({
           where: { userId: user.id },
           limit: 1,
         });
@@ -114,7 +114,7 @@ function App() {
       };
 
       // Save to database with JSON stringified complex fields
-      const saved = await blink.db.userProfiles.create({
+      const saved = await (blink.db as any).userProfiles.create({
         ...newProfile,
         equipment: JSON.stringify(newProfile.equipment),
         constraints: JSON.stringify(newProfile.constraints),
@@ -156,7 +156,7 @@ function App() {
   const handleWorkoutComplete = async (session: WorkoutSession) => {
     try {
       // Save session to database
-      await blink.db.workoutSessions.create({
+      await (blink.db as any).workoutSessions.create({
         ...session,
         exercises: JSON.stringify(session.exercises),
         muscleVolume: JSON.stringify(session.muscleVolume),
@@ -259,7 +259,7 @@ function App() {
         <CalendarPlanning
           profile={profile}
           onBack={() => setView('dashboard')}
-          onEditWorkout={(template) => {
+          onEditWorkout={(template: WorkoutTemplate) => {
             // In a real app, we'd navigate to an editor
             setCurrentWorkout(template);
             setView('generate-workout');

@@ -50,7 +50,7 @@ export function Dashboard({ profile, user, onLogout, onGenerateWorkout, onViewCa
         const end = endOfWeek(now, { weekStartsOn: 1 });
 
         // Load sessions for this week
-        const sessionData = await blink.db.workoutSessions.list({
+        const sessionData = await (blink.db as any).workoutSessions.list({
           where: { 
             userId: profile.userId,
           },
@@ -72,7 +72,7 @@ export function Dashboard({ profile, user, onLogout, onGenerateWorkout, onViewCa
         setSessions(weekSessions as WorkoutSession[]);
 
         // Load plans for this week
-        const planData = await blink.db.workoutPlans.list({
+        const planData = await (blink.db as any).workoutPlans.list({
           where: { userId: profile.userId },
           limit: 20,
         });

@@ -1,2 +1,2 @@
-# ai-strength-coach
+# ai-strength-coach-mobile
 Created with Blink

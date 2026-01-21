@@ -95,6 +95,28 @@ export default function DashboardScreen() {
               <MuscleMap data={muscleVolume || {}} side="front" />
               <MuscleMap data={muscleVolume || {}} side="back" />
             </View>
+            
+            {muscleVolume && Object.keys(muscleVolume).length > 0 && (
+              <View style={styles.muscleBreakdown}>
+                {Object.entries(muscleVolume)
+                  .sort((a: any, b: any) => b[1] - a[1])
+                  .slice(0, 3)
+                  .map(([muscle, score]: any) => (
+                    <View key={muscle} style={styles.breakdownItem}>
+                      <Text style={styles.breakdownName}>{muscle.replace('_', ' ')}</Text>
+                      <View style={styles.breakdownBar}>
+                        <View 
+                          style={[
+                            styles.breakdownFill, 
+                            { width: `${Math.min((score / 10) * 100, 100)}%` }
+                          ]} 
+                        />
+                      </View>
+                      <Text style={styles.breakdownScore}>{score} sets</Text>
+                    </View>
+                  ))}
+              </View>
+            )}
           </Card>
         </View>
 
@@ -139,7 +161,12 @@ export default function DashboardScreen() {
           <Text style={styles.sectionTitle}>Recent Workouts</Text>
           {recentWorkouts && recentWorkouts.length > 0 ? (
             recentWorkouts.map((workout: any) => (
-              <Card key={workout.id} style={styles.workoutCard} variant="elevated">
+              <Card 
+                key={workout.id} 
+                style={styles.workoutCard} 
+                variant="elevated"
+                onPress={() => router.push(`/workouts/history/${workout.id}`)}
+              >
                 <View style={styles.workoutInfo}>
                   <View style={styles.workoutIcon}>
                     <Ionicons name="fitness" size={20} color={colors.primary} />
@@ -224,6 +251,41 @@ const styles = StyleSheet.create({
   muscleMapContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginBottom: spacing.md,
+  },
+  muscleBreakdown: {
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    paddingTop: spacing.md,
+  },
+  breakdownItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.xs,
+  },
+  breakdownName: {
+    ...typography.tiny,
+    color: colors.textSecondary,
+    textTransform: 'uppercase',
+    width: 80,
+  },
+  breakdownBar: {
+    flex: 1,
+    height: 4,
+    backgroundColor: colors.borderLight,
+    borderRadius: 2,
+    marginHorizontal: spacing.sm,
+  },
+  breakdownFill: {
+    height: '100%',
+    backgroundColor: colors.primary,
+    borderRadius: 2,
+  },
+  breakdownScore: {
+    ...typography.tiny,
+    color: colors.textTertiary,
+    width: 50,
+    textAlign: 'right',
   },
   quickActions: {
     flexDirection: 'row',
